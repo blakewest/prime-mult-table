@@ -28,19 +28,45 @@ def find_n_primes(n)
   return result
 end
 
+def get_proper_spacing(cur_num_length, largest_cell_size, extra_right_side)
+  spaces = ""
+  num_spaces = largest_cell_size + extra_right_side - cur_num_length
+  num_spaces.times do | |
+    spaces += " "
+  end
+  spaces
+end
+
 def make_table(nums)
     table = ''
+
+    # Add in 1 at the beginning to make table creation easier
     nums.unshift(1)
+
+    # A formatting parameter
+    extra_right_side = 2
+
+    # Figuring out largest number we'll get, so we can make all cells equal size
+    largest_cell_size = ((nums.last**2).to_s.length) + extra_right_side
+
     nums.each_with_index do |num1, i1|
         row = ''
         nums.each_with_index do |num2, i2|
+            # Show nothing for very first top left cell.
             if i1 == 0 and i2 == 0
-                row += "|   "
+                spaces = get_proper_spacing(0, largest_cell_size, extra_right_side)
+                row += "|  " + spaces
             else
-                row += "| #{num1*num2} "
+            # Find number, create cell with correct spacing
+                result = num1*num2
+                spaces = get_proper_spacing(result.to_s.length, largest_cell_size, extra_right_side)
+                row += "|  #{result}" + spaces
             end
         end
         table += row + "|\n"
     end
     puts table
 end
+
+num_primes = ARGV[0] ? ARGV[0].to_i : 10
+make_table(find_n_primes(num_primes))
