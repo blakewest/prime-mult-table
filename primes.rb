@@ -73,6 +73,7 @@ class Primes
           table += row + "|\n"
       end
       puts table
+      table
   end
 end
 
