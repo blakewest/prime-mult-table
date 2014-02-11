@@ -30,7 +30,14 @@ class Primes
   end
 
   def create_n_primes_table(num_primes)
-    make_table(find_n_primes(num_primes))
+    prime_array = find_n_primes(num_primes)
+
+    #Test we got something back
+    unless prime_array
+      return puts "Can't make a primes table with this input. Must be a positive integer"
+    end
+
+    make_table(prime_array)
   end
 
   private
